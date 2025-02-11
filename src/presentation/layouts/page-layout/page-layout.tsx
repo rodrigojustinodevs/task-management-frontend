@@ -1,24 +1,17 @@
-import { memo, PropsWithChildren } from "react";
+import { Toaster } from "@presentation/components/toast";
 import { mergeStyles } from "@shared/utils/merge-styles";
+import { memo, PropsWithChildren } from "react";
 
-const PageLayout = memo(
-  ({
-    isFullContent,
-    children,
-  }: PropsWithChildren<{ isFullContent?: boolean }>) => {
-    return (
-      <main className="flex w-dvw h-dvh justify-center bg-white">
-        <div
-          className={mergeStyles(
+const PageLayout = memo(({ isFullContent, children }: PropsWithChildren<{ isFullContent?: boolean}>) => {
+    return <main className="flex w-dvw h-dvh justify-center bg-white">
+        <div className={mergeStyles(
             "w-dvw h-dvh",
             !isFullContent ? "px-4 md:w-[50dvw] md:p-0 lg:w-[40dvw]" : ""
-          )}
-        >
-          {children}
+        )}>
+            {children}
         </div>
-      </main>
-    );
-  }
-);
+        <Toaster />
+    </main>
+})
 
-export { PageLayout };
+export { PageLayout }
