@@ -15,6 +15,11 @@ const GET_USERS = gql`
 `;
 
 export class UserRepositoryImpl implements UserRepository {
+  async createUsers(users: User[]): Promise<void> {
+    // Lógica para criar os usuários
+    console.log('Criando usuários:', users);
+  }
+
   async getUsers(): Promise<User[]> {
     const { data } = await httpClient.query({ query: GET_USERS });
     return data.users;
