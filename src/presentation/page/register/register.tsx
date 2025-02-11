@@ -16,7 +16,7 @@ const Register = memo(() => {
           <div className="flex flex-col gap-1">
             <label htmlFor="name">Name</label>
             <Input
-              className="w-100 border-white"
+              className="text-xs font-medium"
               id="name"
               placeholder="Enter your name"
             />
@@ -32,7 +32,7 @@ const Register = memo(() => {
           <div className="flex flex-col gap-1">
             <label htmlFor="password">Password</label>
             <Input
-              className="w-100 border-white"
+              className="text-xs font-medium"
               id="password"
               type="password"
               placeholder="Enter your password"
