@@ -1,16 +1,22 @@
-import axios from 'axios';
+import { LoginDTO } from "@domain/auth/auth.dto";
+import { AuthServiceInterface } from "@domain/auth/auth.service";
+import { CookiesServiceInterface } from "@domain/cookies/cookies.service";
+import { AxiosInstance } from "axios";
 
-export async function login(email: string, password: string) {
-  try {
-    const response = await axios.post('http://localhost:8004/api/login', {
-      email,
-      password,
-    });
+export const authService = ({
+    cookies,
+    client,
+}: {
+    cookies?: CookiesServiceInterface;
+    client: AxiosInstance
+}): AuthServiceInterface => {
 
-    localStorage.setItem('token', response.data.token); // Salva o token
-    return response.data;
-  } catch (error) {
-    console.error('Erro ao fazer login:', error);
-    throw error;
-  }
+    return {
+        login: async (data: LoginDTO): Promise<{ token: string }> => {
+            return await client.post("/api/login", data)
+        },
+        logout: () => {
+            cookies?.remove("accessToken");
+        }
+    }
 }
