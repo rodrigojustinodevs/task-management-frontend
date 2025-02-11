@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { LogOut, User } from "react-feather";
+import { LogOut, User } from "lucide-react";
 import { Avatar } from "../avatar";
 import { 
     DropdownMenu, 
