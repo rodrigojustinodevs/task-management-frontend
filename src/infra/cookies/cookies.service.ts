@@ -1,5 +1,6 @@
 import { CookiesServiceInterface } from '@domain/cookies/cookies.service'
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
+
 
 export function cookiesService(): CookiesServiceInterface {
     return {
