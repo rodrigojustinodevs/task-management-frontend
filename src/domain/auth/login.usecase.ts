@@ -11,11 +11,12 @@ export function loginUseCase({
 }) {
     return {
         execute: async function ({ email, password }: LoginDTO) {
-            const response = await service.login({
+            const { data } = await service.login({
                 email, password
             });
-
-            cookies.set("accessToken", response.token, {
+            console.log(data);
+            
+            cookies.set("accessToken", data.token, {
                 expires: new Date().setHours(3),
                 secure: true,
             })
