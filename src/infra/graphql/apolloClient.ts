@@ -6,23 +6,33 @@ import { environmentService } from "@infra/environment/environment.service";
 const environment = environmentService();
 const cookies = cookiesService();
 
+// Configuração do link HTTP para Apollo Client
 const httpLink = new HttpLink({
-  uri: environment.baseApiUrl,
+  uri: environment.baseApiUrl + 'graphql',  // URL do seu servidor GraphQL
+  fetchOptions: {
+    mode: 'cors', // Definir o modo como CORS
+    credentials: 'include',
+    method: 'POST',  // Permite que cookies sejam enviados com as requisições
+  },
 });
 
+// Configuração de autenticação com o token
 const authLink = setContext((_, { headers }) => {
-  const token = cookies.get("accessToken");
+  const token = cookies.get("accessToken");  // Pegando o token do cookie
   return {
     headers: {
       ...headers,
-      Authorization: token ? `Bearer ${token}` : "",
+      'Connection': 'keep-alive',
+      Authorization: token ? `Bearer ${token}` : "",  // Remova a vírgula extra
+      'Content-Type': 'application/json',
     },
   };
 });
 
-const httpClient = new ApolloClient({
-  link: from([authLink, httpLink]),
-  cache: new InMemoryCache(),
+// Configuração final do Apollo Client
+const client = new ApolloClient({
+  link: from([authLink, httpLink]),  // Combinando o authLink e o httpLink
+  cache: new InMemoryCache(),  // Configuração do cache para o Apollo
 });
 
-export default httpClient;
+export default client;
